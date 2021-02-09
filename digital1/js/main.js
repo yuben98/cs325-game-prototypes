@@ -31,8 +31,8 @@ var GameScene = new Phaser.Class({
     {
         this.load.image('city', 'assets/city.png');
         this.load.image('ground', 'assets/platform.png');
-        this.load.image('gabi', 'assets/gabi.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.image('titan', 'assets/titan.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.image('gabi', 'assets/gabi.png');
+        this.load.image('titan', 'assets/titan.png');
     },
 
     create: function ()
@@ -47,7 +47,7 @@ var GameScene = new Phaser.Class({
         platforms.create(50, 250, 'ground');
         platforms.create(750, 220, 'ground');
 
-        var player = this.physics.add.image(100, 450, 'titan');
+        var player = this.physics.add.sprite(100, 450, 'titan');
 
         player.setBounce(0.2);
         player.setCollideWorldBounds(true);
