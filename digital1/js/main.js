@@ -42,7 +42,7 @@ var GameScene = new Phaser.Class({
 
         var platforms = this.physics.add.staticGroup();
 
-        var chew =this.sound.add('chew');
+        var chew =this.audio.add('chew');
 
         platforms.create(400, 568, 'ground').setScale(2).refreshBody();
 
