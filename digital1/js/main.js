@@ -41,14 +41,14 @@ var GameScene = new Phaser.Class({
 
         var platforms = this.physics.add.staticGroup();
 
-        platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+        platforms.create(400, 568, 'ground').setDisplaySize(800,50).refreshBody();
 
-        platforms.create(600, 400, 'ground');
-        platforms.create(50, 250, 'ground');
-        platforms.create(750, 220, 'ground');
+        platforms.create(600, 400, 'ground').setDisplaySize(400,30);
+        platforms.create(50, 250, 'ground').setDisplaySize(400,30);
+        platforms.create(750, 220, 'ground').setDisplaySize(400,30);
 
         var player = this.physics.add.sprite(100, 450, 'titan');
-        player.setDisplaySize(20,80)
+        player.setDisplaySize(30,80)
         player.setBounce(0.2);
         player.setCollideWorldBounds(true);
 
