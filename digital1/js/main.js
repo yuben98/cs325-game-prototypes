@@ -113,7 +113,7 @@ var GameScene = new Phaser.Class({
     eatGabi: function (player, gabi)
     {
         gabi.disableBody(true, true);
-        sound.play;
+        sound.play();
         var h=this.player.displayHeight;
         var w=this.player.displayWidth;
         this.player.setDisplaySize((w+5),(h+5));
