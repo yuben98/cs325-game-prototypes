@@ -33,6 +33,7 @@ var GameScene = new Phaser.Class({
         this.load.image('ground', 'assets/platform.png');
         this.load.image('gabi', 'assets/gabi.png');
         this.load.image('titan', 'assets/titan.png');
+        this.load.audio('sound', 'assers/eat.wav');
     },
 
     create: function ()
@@ -40,6 +41,8 @@ var GameScene = new Phaser.Class({
         this.add.image(400, 300, 'city');
 
         var platforms = this.physics.add.staticGroup();
+
+        var sound=this.sound.add('sound');
 
         platforms.create(400, 568, 'ground').setScale(2).refreshBody();
 
@@ -110,9 +113,10 @@ var GameScene = new Phaser.Class({
     eatGabi: function (player, gabi)
     {
         gabi.disableBody(true, true);
+        sound.play;
         var h=this.player.displayHeight;
         var w=this.player.displayWidth;
-        this.player.setDisplaySize((w+1),(h+1));
+        this.player.setDisplaySize((w+5),(h+5));
         this.score += 10;
         this.scoreText.setText('Score: ' + this.score);
     }
