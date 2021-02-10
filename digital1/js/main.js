@@ -33,7 +33,7 @@ var GameScene = new Phaser.Class({
         this.load.image('ground', 'assets/platform.png');
         this.load.image('gabi', 'assets/gabi.png');
         this.load.image('titan', 'assets/titan.png');
-        this.load.audio('sound', 'assers/eat.wav');
+        this.load.audio('sound', 'assets/eat.wav');
     },
 
     create: function ()
