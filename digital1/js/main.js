@@ -41,6 +41,8 @@ var GameScene = new Phaser.Class({
         this.add.image(400, 300, 'city');
 
         var platforms = this.physics.add.staticGroup();
+        var context=new AudioContext();
+        context.resume();
         var chew =this.sound.add('chew');
 
         platforms.create(400, 568, 'ground').setScale(2).refreshBody();
@@ -106,7 +108,7 @@ var GameScene = new Phaser.Class({
     eatGabi: function (player, gabi)
     {
         gabi.disableBody(true, true);
-        (sound)(this.chew).play();
+        this.chew.play();
         var h=this.player.displayHeight;
         var w=this.player.displayWidth;
         this.player.setDisplaySize((w+5),(h+5));
