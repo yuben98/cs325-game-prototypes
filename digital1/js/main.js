@@ -60,7 +60,7 @@ var GameScene = new Phaser.Class({
 
         var gabis = this.physics.add.group({
             key: 'gabi',
-            repeat: 40,
+            repeat: 50,
             setXY: { x: 2, y: 0, stepX: 15 }
         });
 
@@ -88,20 +88,14 @@ var GameScene = new Phaser.Class({
         if (cursors.left.isDown)
         {
             player.setVelocityX(-160);
-
-            player.anims.play('left', true);
         }
         else if (cursors.right.isDown)
         {
             player.setVelocityX(160);
-
-            player.anims.play('right', true);
         }
         else
         {
             player.setVelocityX(0);
-
-            player.anims.play('turn');
         }
 
         if (cursors.up.isDown && player.body.touching.down)
