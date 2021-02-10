@@ -75,8 +75,6 @@ var GameScene = new Phaser.Class({
         this.physics.add.overlap(player, gabis, this.eatGabi, null, this);
 
         this.player = player;
-
-        this.scoreText.setText('v15');
     },
 
     update: function ()
@@ -112,7 +110,9 @@ var GameScene = new Phaser.Class({
     eatGabi: function (player, gabi)
     {
         gabi.disableBody(true, true);
-
+        var h=this.player.displayHeight;
+        var w=this.player.displayWidth;
+        this.player.setDisplaySize((w+1),(h+1));
         this.score += 10;
         this.scoreText.setText('Score: ' + this.score);
     }
