@@ -42,7 +42,7 @@ var GameScene = new Phaser.Class({
 
         var platforms = this.physics.add.staticGroup();
 
-        var sound=this.sound.add('sound');
+        var sound =this.sound.add('sound');
 
         platforms.create(400, 568, 'ground').setScale(2).refreshBody();
 
@@ -60,8 +60,8 @@ var GameScene = new Phaser.Class({
 
         var gabis = this.physics.add.group({
             key: 'gabi',
-            repeat: 11,
-            setXY: { x: 12, y: 0, stepX: 70 }
+            repeat: 40,
+            setXY: { x: 2, y: 0, stepX: 15 }
         });
 
         gabis.children.iterate(function (child) {
