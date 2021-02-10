@@ -38,11 +38,11 @@ var GameScene = new Phaser.Class({
 
     create: function ()
     {
+        this.sound.resume()
         this.add.image(400, 300, 'city');
 
         var platforms = this.physics.add.staticGroup();
-
-        var chew =this.audio.add('chew');
+        var chew =this.sound.add('chew');
 
         platforms.create(400, 568, 'ground').setScale(2).refreshBody();
 
