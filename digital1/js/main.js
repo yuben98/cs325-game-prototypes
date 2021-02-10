@@ -48,7 +48,7 @@ var GameScene = new Phaser.Class({
         platforms.create(750, 220, 'ground');
 
         var player = this.physics.add.sprite(100, 450, 'titan');
-
+        player.setDisplaySize(20,80)
         player.setBounce(0.2);
         player.setCollideWorldBounds(true);
 
