@@ -110,7 +110,7 @@ var GameScene = new Phaser.Class({
         this.sound.play('chew');
         var h=this.player.displayHeight;
         var w=this.player.displayWidth;
-        this.player.setDisplaySize((w+5),(h+5));
+        this.player.setDisplaySize((w+2),(h+2));
         this.score += 10;
         this.scoreText.setText('Score: ' + this.score);
     }
