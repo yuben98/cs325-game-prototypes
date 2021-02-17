@@ -58,7 +58,7 @@ var GameScene = new Phaser.Class({
             }
         });
 
-        this.addPlatform(800, 400, 600 * ([0.4-0.8]), platformPool);
+        this.addPlatform(800, 400, 600 * ([0.4-0.8]), this.platformPool);
 
         var player=this.physics.add.sprite(50,450,'camel');
         player.setDisplaySize(35,28);
