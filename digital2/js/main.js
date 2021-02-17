@@ -70,7 +70,7 @@ var GameScene = new Phaser.Class({
 
     },
 
-    
+
     addPlatform(platformWidth, posX, posY)
     {
         this.addedPlatforms ++;
@@ -94,7 +94,7 @@ var GameScene = new Phaser.Class({
             this.platformGroup.add(platform);
         }
         this.nextPlatformDistance = Phaser.Math.Between(80, 300);
-    }
+    },
 
     update: function ()
     {
