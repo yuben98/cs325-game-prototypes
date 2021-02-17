@@ -69,7 +69,7 @@ var GameScene = new Phaser.Class({
         this.input.mouse.capture=true;
 
 
-        addPlatform(platformWidth, posX, posY){
+        addPlatform: function(platformWidth, posX, posY){
             this.addedPlatforms ++;
             let platform;
             if(this.platformPool.getLength()){
