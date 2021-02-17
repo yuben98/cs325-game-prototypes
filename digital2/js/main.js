@@ -26,6 +26,7 @@ var GameScene = new Phaser.Class({
         this.score = 0;
         this.scoreText = null;
     },
+    
 
     preload: function ()
     {
@@ -51,13 +52,13 @@ var GameScene = new Phaser.Class({
 
         });
 
-        var platformPool = this.add.group({
+        this.platformPool = this.add.group({
             removeCallback: function(platform){
                 platform.scene.platformGroup.add(platform)
             }
         });
 
-        this.addPlatform(800, 400, 600 * ([0.4-0.8]));
+        this.addPlatform(800, 400, 600 * ([0.4-0.8]), platformPool);
 
         var player=this.physics.add.sprite(50,450,'camel');
         player.setDisplaySize(35,28);
@@ -110,12 +111,12 @@ var GameScene = new Phaser.Class({
             let minPlatformHeight = game.config.height * 0.4;
             let maxPlatformHeight = game.config.height * 0.8;
             let nextPlatformHeight = Phaser.Math.Clamp(nextPlatformGap, minPlatformHeight, maxPlatformHeight);
-            this.addPlatform(nextPlatformWidth, game.config.width + nextPlatformWidth / 2, nextPlatformHeight);
+            this.addPlatform(nextPlatformWidth, game.config.width + nextPlatformWidth / 2, nextPlatformHeight, this.platformPool);
         }
 
     },
 
-    addPlatform: function(platformWidth, posX, posY)
+    addPlatform: function(platformWidth, posX, posY, platformPool)
         {
             this.addedPlatforms ++;
             let platform;
