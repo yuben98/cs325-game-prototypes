@@ -75,7 +75,7 @@ var GameScene = new Phaser.Class({
     {
         this.addedPlatforms ++;
         let platform;
-        if(this.platformPool.getLength()){
+        if(this.platformPool){
             platform = this.platformPool.getFirst();
             platform.x = posX;
             platform.y = posY;
