@@ -43,15 +43,15 @@ var GameScene = new Phaser.Class({
         music.play();
         music.setLoop(true);
 
-        addedPlatforms=0;
-        platformGroup = this.add.group({
+        var addedPlatforms=0;
+        var platformGroup = this.add.group({
             removeCallback: function(platform){
                 platform.scene.platformPool.add(platform)
             }
 
         });
 
-        platformPool = this.add.group({
+        var platformPool = this.add.group({
             removeCallback: function(platform){
                 platform.scene.platformGroup.add(platform)
             }
@@ -59,7 +59,7 @@ var GameScene = new Phaser.Class({
 
         this.addPlatform(800, 400, 600 * ([0.4-0.8]));
 
-        player=this.physics.add.sprite(50,450,'camel');
+        var player=this.physics.add.sprite(50,450,'camel');
         player.setDisplaySize(35,28);
         player.setBounce(0);
         player.setGravity(600);
