@@ -39,7 +39,7 @@ var GameScene = new Phaser.Class({
     create: function ()
     {
         this.add.image(400, 300, 'background');
-        music=this.sound.add('music');
+        var music=this.sound.add('music');
         music.play();
         music.setLoop(true);
 
