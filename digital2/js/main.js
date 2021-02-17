@@ -68,32 +68,33 @@ var GameScene = new Phaser.Class({
 
         this.input.mouse.capture=true;
 
-        
-
-        addPlatform(platformWidth, posX, posY){
-            this.addedPlatforms ++;
-            let platform;
-            if(this.platformPool.getLength()){
-                platform = this.platformPool.getFirst();
-                platform.x = posX;
-                platform.y = posY;
-                platform.active = true;
-                platform.visible = true;
-                this.platformPool.remove(platform);
-                let newRatio =  platformWidth / platform.displayWidth;
-                platform.displayWidth = platformWidth;
-                platform.tileScaleX = 1 / platform.scaleX;
-            }
-            else{
-                platform = this.add.tileSprite(posX, posY, platformWidth, 32, "platform");
-                this.physics.add.existing(platform);
-                platform.body.setImmovable(true);
-                platform.body.setVelocityX(Phaser.Math.Between(300, 300) * -1);
-                this.platformGroup.add(platform);
-            }
-            this.nextPlatformDistance = Phaser.Math.Between(80, 300);
-        }
     },
+
+    
+    addPlatform(platformWidth, posX, posY)
+    {
+        this.addedPlatforms ++;
+        let platform;
+        if(this.platformPool.getLength()){
+            platform = this.platformPool.getFirst();
+            platform.x = posX;
+            platform.y = posY;
+            platform.active = true;
+            platform.visible = true;
+            this.platformPool.remove(platform);
+            let newRatio =  platformWidth / platform.displayWidth;
+            platform.displayWidth = platformWidth;
+            platform.tileScaleX = 1 / platform.scaleX;
+        }
+        else{
+            platform = this.add.tileSprite(posX, posY, platformWidth, 32, "platform");
+            this.physics.add.existing(platform);
+            platform.body.setImmovable(true);
+            platform.body.setVelocityX(Phaser.Math.Between(300, 300) * -1);
+            this.platformGroup.add(platform);
+        }
+        this.nextPlatformDistance = Phaser.Math.Between(80, 300);
+    }
 
     update: function ()
     {
