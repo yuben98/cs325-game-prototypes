@@ -33,7 +33,7 @@ var GameScene = new Phaser.Class({
         this.load.image('background', 'assets/background.png');
         this.load.image('platform', 'assets/platform.png');
         this.load.image('camel', 'assets/camel.png');
-        this.load.image('oasis', 'assets/oasis.png');
+       // this.load.image('oasis', 'assets/oasis.png');
         this.load.audio('music', 'assets/music.mp3');
     },
 
