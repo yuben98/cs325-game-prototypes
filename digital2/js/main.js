@@ -25,7 +25,13 @@ var GameScene = new Phaser.Class({
         this.cursors = null;
         this.score = 0;
         this.scoreText = null;
-    },
+        this.music=null;
+        this.i=0;
+        this.n=0;
+        this.count=0;
+        this.oasis=null;
+        this.winSound=null;
+        },
     
 
     preload: function ()
@@ -33,114 +39,106 @@ var GameScene = new Phaser.Class({
         this.load.image('background', 'assets/background.png');
         this.load.image('platform', 'assets/platform.png');
         this.load.image('camel', 'assets/camel.png');
-       // this.load.image('oasis', 'assets/oasis.png');
+        this.load.image('wall', 'assets/wall.png')
+        this.load.image('oasis', 'assets/oasis.png');
         this.load.audio('music', 'assets/music.mp3');
+        this.load.image('cloud', 'assets/cloud.png');
+        this.load.audio('winsound', 'assets/winsound.mp3');
+
     },
 
     create: function ()
     {
         this.add.image(400, 300, 'background');
-        var music=this.sound.add('music');
-        music.play();
-        music.setLoop(true);
+        if (this.music ==null) {
+            this.music=this.sound.add('music');
+            this.music.play();
+            this.music.setLoop(true);
+        }
+        if (this.winSound ==null) {
+            this.winSound=this.sound.add('winsound');
+            this.winSound.setLoop(false);
+        }
 
-        var addedPlatforms=0;
-        var platformGroup = this.add.group({
-            removeCallback: function(platform){
-                platform.scene.platformPool.add(platform)
-            }
+        var ground = this.physics.add.staticGroup();
+        ground.create(400,568,'platform').setScale(2).refreshBody();
+        ground.create(-500,300,'wall');
 
+        var platforms = this.physics.add.group({
+            immovable: true,
+            allowGravity: false,
+            velocityX: -400
         });
 
-        this.platformPool = this.add.group({
-            removeCallback: function(platform){
-                platform.scene.platformGroup.add(platform)
-            }
+        platforms.create(0,220, 'platform');
+        for(this.i=1;this.i<10;this.i++) platforms.create((this.i*300),Phaser.Math.Between(220,450),'platform').setScale(0.3);
+
+        var clouds = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+            velocityX: Phaser.Math.Between(-200,-300)
         });
 
-        this.addPlatform(800, 400, 600 * ([0.4-0.8]), this.platformPool, this.platformGroup);
+        for (this.n=0;this.n<8; this.n++) clouds.create((this.n*150),Phaser.Math.Between(60,400),'cloud').setScale(Phaser.Math.Between(0.5,1));
 
-        var player=this.physics.add.sprite(50,450,'camel');
-        player.setDisplaySize(35,28);
-        player.setBounce(0);
-        player.setGravity(600);
 
-        this.physics.add.collider(player, platformGroup);
+        this.player=this.physics.add.sprite(50,150,'camel');
+        this.player.setDisplaySize(130,110);
+        this.player.setBounce(0);
+        this.player.setCollideWorldBounds(true);
 
-        this.input.mouse.capture=true;
+        this.physics.add.overlap(this.player,ground, this.lose, null, this);
+        this.physics.add.collider(this.player, platforms);
+        this.physics.add.overlap(platforms, ground, this.chargeUp, null, this);
+        this.physics.add.overlap(clouds, ground, this.cloudBack, null, this);
+
+        
+        this.oasis= this.physics.add.image(750,490,'oasis');
+        this.oasis.setDisplaySize(180,100);
+        this.physics.add.collider(this.oasis, ground);
+        this.physics.add.overlap(this.player, this.oasis, this.win, null, this);
+        
+        this.cursors = this.input.keyboard.createCursorKeys();
     },
 
 
     update: function ()
     {
-        var left = game.input.activePointer.leftButton.isDown;
-        var right = game.input.activePointer.rightButton.isDown;
-        var player = this.player;
 
-        if (left && player.body.touching.down)
+        var up = this.cursors.up.isDown;
+        var down= this.cursors.down.isDown;
+
+        if(this.count==20) this.oasis.setVelocityX(-1000);
+
+        if (up && this.player.body.touching.down)
         {
-            player.setVelocityY(-700);
+            this.player.setVelocityY(-700);
         }
-        if (right && !(player.body.touching.down)) {
-            player.setVelocityy(500);
-        }
-
-        if(player.y > game.config.height){
-            this.scene.start("PlayGame");
-        }
-        this.player.x = 100;
-
-        let minDistance = game.config.width;
-        let rightmostPlatformHeight = 0;
-        this.platformGroup.getChildren().forEach(function(platform){
-            let platformDistance = game.config.width - platform.x - platform.displayWidth / 2;
-            if(platformDistance < minDistance){
-                minDistance = platformDistance;
-                rightmostPlatformHeight = platform.y;
-            }
-            if(platform.x < - platform.displayWidth / 2){
-                this.platformGroup.killAndHide(platform);
-                this.platformGroup.remove(platform);
-            }
-        }, this);
-
-        if(minDistance > this.nextPlatformDistance){
-            let nextPlatformWidth = Phaser.Math.Between(90, 300);
-            let platformRandomHeight = 20 * Phaser.Math.Between(-5, 5);
-            let nextPlatformGap = rightmostPlatformHeight + platformRandomHeight;
-            let minPlatformHeight = game.config.height * 0.4;
-            let maxPlatformHeight = game.config.height * 0.8;
-            let nextPlatformHeight = Phaser.Math.Clamp(nextPlatformGap, minPlatformHeight, maxPlatformHeight);
-            this.addPlatform(nextPlatformWidth, game.config.width + nextPlatformWidth / 2, nextPlatformHeight, this.platformPool, this.platformGroup);
+        if (down && !(this.player.body.touching.down)) {
+            this.player.setVelocityY(3000);
         }
 
     },
 
-    addPlatform: function(platformWidth, posX, posY, platformPool, platformGroup)
-        {
-            this.addedPlatforms ++;
-            let platform;
-            if(this.platformPool.getLength()){
-                platform = this.platformPool.getFirst();
-                platform.x = posX;
-                platform.y = posY;
-                platform.active = true;
-                platform.visible = true;
-                this.platformPool.remove(platform);
-                let newRatio =  platformWidth / platform.displayWidth;
-                platform.displayWidth = platformWidth;
-                platform.tileScaleX = 1 / platform.scaleX;
-            }
-            else{
-                platform = this.add.tileSprite(posX, posY, platformWidth, 32, "platform");
-                this.physics.add.existing(platform);
-                platform.body.setImmovable(true);
-                platform.body.setVelocityX(Phaser.Math.Between(300, 300) * -1);
-                this.platformGroup.add(platform);
-            }
-            this.nextPlatformDistance = Phaser.Math.Between(80, 300);
-        }
+    lose: function(player ,ground){
+        this.count=0;
+        this.scene.start("gameScene");
+    },
 
+    win: function(player, oasis){
+        this.count=0;
+        this.winSound.play();
+        this.scene.start("gameScene");
+    },
+
+    chargeUp: function(platforms, ground){
+        this.count++;
+        platforms.setPosition(this.i*300, Phaser.Math.Between(220,450));
+    },
+
+    cloudBack: function(clouds, ground) {
+        clouds.setPosition(this.n*150, Phaser.Math.Between(60,500));
+    }
 });
 
 var config = {
@@ -155,7 +153,7 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 500 },
+            gravity: { y: 420 },
             debug: false
         }
     },
