@@ -68,8 +68,9 @@ var GameScene = new Phaser.Class({
 
         this.input.mouse.capture=true;
 
+        
 
-        addPlatform: function(platformWidth, posX, posY){
+        addPlatform(platformWidth, posX, posY){
             this.addedPlatforms ++;
             let platform;
             if(this.platformPool.getLength()){
@@ -91,6 +92,7 @@ var GameScene = new Phaser.Class({
                 this.platformGroup.add(platform);
             }
             this.nextPlatformDistance = Phaser.Math.Between(80, 300);
+        }
     },
 
     update: function ()
