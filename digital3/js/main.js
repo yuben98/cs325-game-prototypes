@@ -27,6 +27,8 @@ var GameScene = new Phaser.Class({
         this.scoreText = null;
         this.level=1;
         this.count=0;
+        this.bestText = null;
+        this.best=0;
     },
 
     preload: function ()
@@ -57,9 +59,9 @@ var GameScene = new Phaser.Class({
         }
 
         var wall = this.physics.add.staticGroup();
-        wall.create(400,800,'wall');
-        wall.create(-50,300, 'vwall');
-        wall.create(850,300, 'vwall');
+        wall.create(400,700,'wall').setSize(1000,5);
+        wall.create(-50,300, 'vwall').setSize(5,800);
+        wall.create(850,300, 'vwall').setSize(5,800);
 
         var waves=this.physics.add.group({
             allowGravity: false,
@@ -71,7 +73,6 @@ var GameScene = new Phaser.Class({
             allowGravity: false,
             immovable:true,
             velocityY: 400,
-            velocityX: Phaser.Math.Between(-150,150)
         });
 
 
@@ -79,24 +80,24 @@ var GameScene = new Phaser.Class({
         for (i=0; i<8; i++) waves.create(Phaser.Math.Between(50,150),(i*100)+Phaser.Math.Between(0,50), 'wave');
         this.physics.add.overlap(waves, wall, this.waveBack, null, this);
 
-        for (i=0; i<6; i++) pirates.create(i*100+Phaser.Math.Between(50,150),(i*50)+Phaser.Math.Between(0,50), 'pirate').setScale(0.2);
+        for (i=0; i<6; i++) pirates.create(i*100+Phaser.Math.Between(50,150),(i*50)+Phaser.Math.Between(0,50), 'pirate').setScale(0.2).setVelocityX(Phaser.Math.Between(-150,150));
         this.physics.add.overlap(pirates, wall, this.pirateBack, null, this);
 
-        this.player = this.physics.add.sprite(400, 525, 'ship').setScale(0.57);
+        this.player = this.physics.add.sprite(400, 525, 'ship').setScale(0.45);
         this.player.body.setAllowGravity(false);
         this.player.setBounce(0);
         this.player.setCollideWorldBounds(true);
-        this.player.setSize(50,80);
+        this.player.setSize(40,70);
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('ship', {start:1, end: 4}),
+            frames: this.anims.generateFrameNumbers('ship', {start:1, end: 3}),
             repeat: 0
         });
         
         this.anims.create({
             key: 'left',
-            frames: this.anims.generateFrameNumbers('ship', {start:9, end: 12}),
+            frames: this.anims.generateFrameNumbers('ship', {start:9, end: 11}),
             repeat: 0
         });
 
@@ -112,6 +113,7 @@ var GameScene = new Phaser.Class({
 
         
         this.scoreText = this.add.text(16, 16, 'Level: 1', { fontSize: '32px', fill: '#000' });
+        this.bestText = this.add.text(18,42, 'Best: '+this.best, {fontSize: '16px', fill: '#000'}); 
     },
 
     update: function ()
@@ -119,22 +121,22 @@ var GameScene = new Phaser.Class({
         var mousx = this.input.mousePointer.x;
         var difx=(mousx-this.player.x);
 
-        if (difx < -20) {
+        if (difx < -15) {
             this.player.setVelocityX(-400-(this.level*200));
             if (this.player.anims.currentAnim.key !== 'left') this.player.anims.play('left', true);
-            this.player.setSize(60,40);
+            this.player.setSize(50,40);
         }
 
-        else if (difx > 20) {
+        else if (difx > 15) {
             this.player.setVelocityX(400+this.level*200);
             if (this.player.anims.currentAnim.key !== 'right') this.player.anims.play('right', true);
-            this.player.setSize(60,40);
+            this.player.setSize(50,40);
         }
 
         else {
             this.player.setVelocityX(0);
             this.player.anims.play('turn');
-            this.player.setSize(50,80);
+            this.player.setSize(40,70);
         }
 
         
@@ -162,6 +164,7 @@ var GameScene = new Phaser.Class({
     },
 
     lose: function() {
+        if (this.best < this.level) this.best=this.level;
         this.level=1;
         this.count=0;
         this.scene.start("gameScene");
