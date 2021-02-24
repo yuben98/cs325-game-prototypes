@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Save your pirate!</title>
+<style>
+body
+{
+    color: #777;
+    font-family: "Avenir", Verdana, sans-serif;
+}
+#readme
+{
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+<div id="game"></div>
+<div id="readme">
+<h2>Pirate King</h2>
+
+<ul>
+<li><strong>Originality:</strong>
+The game is fully original, I didn't rely on any prototype and wrote everything from scratch. It also includes custom assets
+ such as hyper realistic waves and water. I also had to manually make the spritesheet for the main ship's animation as 
+ the asset I borrowed for that had the images in separate files. The way some elements are recycled such as enemy ships 
+ and waves is also something I wrote on my own. The way the game's difficulty scales by level is also an original idea of mine.
+</li>
+
+<li><strong>Technical Merit:</strong>
+I was able to incorporate many assets, play multiple sounds at different volumes, and make a functionning spritesheet. 
+Although recycling elements was something I managed to do in the past digital assignment, I had to modify the algorithm as
+it now changes the elements' velocity, both vertical and horizontal, as well as their size. I also change the player's 
+hitbox, making it smaller when turning. Difficulty scaling and balancing is also something I had to spend time working on, 
+ensuring that the game isn't too difficult or too easy depending on the stage of the game the player is in.
+</li>
+
+<li><strong>Prototype Postmortem:</strong>
+This is the first prorotype where I worked with a spritesheet and animated it. It was time consuming to assemble the 
+different images into one spritesheet and ensure that all the frames were the same size. It also took time to balance 
+out the enemy ships' movement and velocity.
+</li>
+
+<li><strong>Prototype Assets:</strong>
+I made a couple assets and borrowed some, I modified the ship assets.
+<ul>
+<li>Ship: <a href="https://opengameart.org/content/black-sail-ship-bleeds-game-art">Ship</a></li>
+</ul>
+<ul>
+<li>Enemy pirate ships: <a href="https://www.kindpng.com/picc/m/302-3021888_transparent-pirate-ship-png-png-download.png">Pirate ships</a></li>
+</ul>
+<ul>
+<li>ship/sea sound: <a href="https://freesound.org/people/writeyournamehere/sounds/486871/">ship sound</a></li>
+</ul>
+<ul>
+<li>Music: <a href="https://filmmusic.io/song/7540-seven-seas">Music</a></li>
+</ul>
+</li>
+
+<li><strong>Prototype Closest Other Game:</strong>
+None, I made it from scratch.
+</li>
+
+<li><strong>High Concept:</strong>
+Become the Pirate King by avoiding all incoming enemy ships.
+</li>
+
+<li><strong>Theme:</strong>
+Pirate.
+</li>
+
+<li><strong>Mandated Variety:</strong>
+Direct mouse input; both random and predetermined elements; storyteller and competitor playstyles; adventure and overhead genres.
+</li>
+
+<li><strong>Prototype Goal:</strong>
+Side movement, avoiding obstacles.
+</li>
+
+<li><strong>Player Experience Goals:</strong>
+I want players to feel hooked to the game, attempting to beat their previous record time and time again.
+</li>
+
+<li><strong>Gameplay:</strong>
+Players use their mouse pointer to lead the pirate ship away from the enemy ships. They can only move left and right, 
+and move faster as they progress through levels. Enemy ships' velocity also increases with the levels, making it more 
+difficult to avoid them.
+</li>
+
+<li><strong>Strategies:</strong>
+Players might try sticking to one side of the map when playing, but there isn't much strategy involved when trying to 
+avoid randomly placed elements. Good refelexes are all that's needed.
+</li>
+
+<li><strong>Story/Setting/Premise:</strong>
+A Pirate wants to find a treasure and become Pirate King, the other pirates won't let him.
+</li>
+
+<li><strong>Target Audience:</strong>
+Everyone.
+</li>
+
+<li><strong>Play Time:</strong>
+[0, infinity)
+</li>
+
+</ul>
+</div>
+
+<!-- main.js must come at the end since it expects the HTML to have been created. -->
+<script src="js/main.js" type="module"></script>
+</body>
+</html>
