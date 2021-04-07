@@ -10,6 +10,9 @@ import "./phaser.js";
 // All loading functions will typically all be found inside `preload()`.
 
 // The simplest class example: https://phaser.io/examples/v3/view/scenes/scene-from-es6-class
+
+let prev=0;
+
 var StartScene = new Phaser.Class({
     Extends: Phaser.Scene,
 
@@ -22,6 +25,7 @@ var StartScene = new Phaser.Class({
 
     create: function() {
         this.add.text(32,100, 'Press Space to Start', { fontSize: '42px', fill: '#fff' });
+        if (prev!=0) this.add.text(32,300, 'Your previous Score was '+prev, {fontSize: '42px', fill: '#fff' });
         this.cursors = this.input.keyboard.createCursorKeys();
     },
 
@@ -46,7 +50,8 @@ var GameScene = new Phaser.Class({
         this.player = null;
         this.cursors = null;
         this.score = 0;
-        this.scoreText = null;
+        this.scoreText=null;
+        this.levelText = null;
         this.level=1;
         this.count=0;
         this.bestText = null;
@@ -159,8 +164,9 @@ var GameScene = new Phaser.Class({
 
 
         
-        this.scoreText = this.add.text(16, 16, 'Level: 1', { fontSize: '32px', fill: '#000' });
+        this.levelText = this.add.text(16, 16, 'Level: 1', { fontSize: '32px', fill: '#000' });
         this.bestText = this.add.text(18,42, 'Best: '+this.best, {fontSize: '16px', fill: '#000'}); 
+        this.scoreText=this.add.text(530,16, 'Score: 0', {fontSize: '32px', fill: '000' });
 
         this.cursors = this.input.keyboard.createCursorKeys();
     },
@@ -205,8 +211,10 @@ var GameScene = new Phaser.Class({
 
     lineBack: function(lines, wall) {
         lines.y=-122;
+        this.score=this.score + 10;
+        this.scoreText.setText('Score: '+ this.score);
         this.count++;
-        this.scoreText.setText('Level: ' + this.level);
+        this.levelText.setText('Level: ' + this.level);
         if (this.count==(40+(this.level-1)*20)) {
             this.level++;
             this.newlevel=true;
@@ -228,6 +236,8 @@ var GameScene = new Phaser.Class({
         this.crash.play();
         if (this.best < this.level) this.best=this.level;
         this.level=1;
+        prev=this.score;
+        this.score=0;
         this.count=0;
         this.scene.start("startScene");
     } 
