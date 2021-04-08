@@ -1,17 +1,7 @@
 import "./phaser.js";
 
-// You can copy-and-paste the code from any of the examples at https://examples.phaser.io here.
-// You will need to change the `parent` parameter passed to `new Phaser.Game()` from
-// `phaser-example` to `game`, which is the id of the HTML element where we
-// want the game to go.
-// The assets (and code) can be found at: https://github.com/photonstorm/phaser3-examples
-// You will need to change the paths you pass to `this.load.image()` or any other
-// loading functions to reflect where you are putting the assets.
-// All loading functions will typically all be found inside `preload()`.
-
-// The simplest class example: https://phaser.io/examples/v3/view/scenes/scene-from-es6-class
-
 let prev=0;
+let bestScore=0;
 
 var StartScene = new Phaser.Class({
     Extends: Phaser.Scene,
@@ -25,7 +15,9 @@ var StartScene = new Phaser.Class({
 
     create: function() {
         this.add.text(32,100, 'Press Space to Start', { fontSize: '42px', fill: '#fff' });
-        if (prev!=0) this.add.text(32,300, 'Your previous Score was '+prev, {fontSize: '42px', fill: '#fff' });
+        this.add.text(32,200, 'Use the Left and Right arrow keys to steer', { fontSize: '26px', fill: '#fff' });
+        if (prev!=0) this.add.text(32,300, 'Your Score was '+prev, {fontSize: '32px', fill: '#fff' });
+        if (bestScore!=0) this.add.text(32,400, 'Your Best Score is '+bestScore, {fontSize: '32px', fill: '#fff' });
         this.cursors = this.input.keyboard.createCursorKeys();
     },
 
@@ -54,8 +46,9 @@ var GameScene = new Phaser.Class({
         this.levelText = null;
         this.level=1;
         this.count=0;
-        this.bestText = null;
-        this.best=0;
+        this.bestLevel = null;
+        this.best=1;
+        this.bestScoreText=null;
         this.newlevel=true;
     },
 
@@ -79,12 +72,12 @@ var GameScene = new Phaser.Class({
         this.add.image(400, 300, 'background');
 
         if (this.music ==null) {
-            this.music=this.sound.add('music', {volume: 0.3});
+            this.music=this.sound.add('music', {volume: 0.1});
             this.music.play();
             this.music.setLoop(true);
         }
         if (this.engineSound == null) {
-            this.engineSound=this.sound.add('engine', {volume: 0.7});
+            this.engineSound=this.sound.add('engine', {volume: 0.3});
             this.engineSound.play();
             this.engineSound.setLoop(true);
         }
@@ -163,10 +156,10 @@ var GameScene = new Phaser.Class({
         this.physics.add.overlap(this.player,this.cones, this.lose, null, this);
 
 
-        
         this.levelText = this.add.text(16, 16, 'Level: 1', { fontSize: '32px', fill: '#000' });
-        this.bestText = this.add.text(18,42, 'Best: '+this.best, {fontSize: '16px', fill: '#000'}); 
-        this.scoreText=this.add.text(530,16, 'Score: 0', {fontSize: '32px', fill: '000' });
+        this.bestLevel = this.add.text(18,42, 'Best: '+this.best, {fontSize: '20px', fill: '#000'}); 
+        this.scoreText=this.add.text(550,16, 'Score: 0', {fontSize: '32px', fill: '#000' });
+        this.bestScoreText=this.add.text(550,42, 'Best: '+bestScore, {fontSize: '20px', fill: '#000' });
 
         this.cursors = this.input.keyboard.createCursorKeys();
     },
@@ -177,8 +170,8 @@ var GameScene = new Phaser.Class({
         var left = this.cursors.left.isDown;
 
         if (this.newlevel) {    
-            this.cones.create(Phaser.Math.Between(100, 680),-300, 'cone').setSize(25,35);
-            if (this.level < 8) {
+            this.cones.create(Phaser.Math.Between(100, 680),-300, 'cone').setSize(25,35).setVelocityY(300+6*50);
+            if (this.level < 7) {
             this.lines.setVelocityY(300+this.level*50);
             this.cones.setVelocityY(300+this.level*50);
             this.trees.setVelocityY(300+this.level*50);
@@ -213,10 +206,18 @@ var GameScene = new Phaser.Class({
         lines.y=-122;
         this.score=this.score + 10;
         this.scoreText.setText('Score: '+ this.score);
+        if (this.score > bestScore) {
+            bestScore=this.score;
+            this.bestScoreText.setText('Best: ' + bestScore);
+        }
         this.count++;
-        this.levelText.setText('Level: ' + this.level);
         if (this.count==(40+(this.level-1)*20)) {
             this.level++;
+            this.levelText.setText('Level: ' + this.level);
+            if (this.best < this.level) {
+                this.best=this.level;
+                this.bestLevel.setText('Best: ' + this.best);
+            }
             this.newlevel=true;
             this.count=0;
         }
@@ -234,7 +235,6 @@ var GameScene = new Phaser.Class({
 
     lose: function() {
         this.crash.play();
-        if (this.best < this.level) this.best=this.level;
         this.level=1;
         prev=this.score;
         this.score=0;
