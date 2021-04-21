@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ZOMBIE SURVIVAL!</title>
+<style>
+body
+{
+    color: #777;
+    font-family: "Avenir", Verdana, sans-serif;
+}
+#readme
+{
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+<div id="game"></div>
+<div id="readme">
+<h2>ZOMBIE SURVIVAL</h2>
+
+<ul>
+<li><strong>Originality:</strong>
+This game is based on my Analog Assignment 5 which can be found on Bb. All the assets were custom made by myself, 
+except for the sound effects. I fully made the player and zombie sprites from scratch which took me longer than I
+would've liked.</li>
+
+<li><strong>Technical Merit:</strong>
+I was able to incorporate many assets, play multiple sounds at different volumes, and make fully functionning and animated sprites. 
+I have different sounds play for different events, in varying volumes. I incorporated some concepts from the textbook such as game feel.
+I had to work with many new elements: Instead of creating a new bullet every time the player shoots, which causes huge 
+performance issues the longer the game goes on, I recycle the same bullet but have it stay invisible until needed. I also have a very basic AI 
+for the zombies that follow and attack the player.
+</li>
+
+<li><strong>Prototype Postmortem:</strong>
+This is my second time converting an analog game into a digital one, and I learned many techniques that are bound to make the next sequence 
+easier. I also already have some ideas planned for the next iteration of this game. I am more comfortable creating and animating a group of sprites 
+and can easily work with bullets the next time around.
+</li>
+
+<li><strong>Prototype Assets:</strong>
+All graphical assets were custom made. The sound effects were borrowed from freesound.org.
+<ul>
+<li>Walking sound <a href="https://freesound.org/people/Yuval/sounds/189640/">Walk</a></li>
+</ul>
+<ul>
+<li>gunshot: <a href="https://freesound.org/people/andrest2003/sounds/524912/">Gunshot</a></li>
+</ul>
+<ul>
+<li>Zombie sounds: <a href="https://freesound.org/people/tonsil5/sounds/555421/">Zombie</a></li>
+</ul>
+<ul>
+<li>Player's despair on death: <a href="https://freesound.org/people/NachtmahrTV/sounds/556706/">Pain</a></li>
+</ul>
+</li>
+
+<li><strong>Prototype Closest Other Game:</strong>
+This game is based on the Analog Assignment 5.
+</li>
+
+<li><strong>High Concept:</strong>
+Survive the zombie apocalypse. You have one gun.
+</li>
+
+<li><strong>Theme:</strong>
+There was no mandatory theme for this assignment.
+</li>
+
+<li><strong>Mandated Variety:</strong>
+Keyboard input; mouse input; both random and predetermined elements; competitor; adventure; overhead; infinite; shooter.
+</li>
+
+<li><strong>Prototype Goal:</strong>
+Kill the zombies and survive.
+</li>
+
+<li><strong>Player Experience Goals:</strong>
+The players will have fun and want to challenge themselves to reach a new highscore.
+</li>
+
+<li><strong>Gameplay:</strong>
+Use WASD to move. Mouse click to shoot. Shots can only go in the direction the player is facing, cannot aim with the mouse.
+</li>
+
+<li><strong>Strategies:</strong>
+Line up zombies and kill them.
+</li>
+
+<li><strong>Story/Setting/Premise:</strong>
+A man is stuck in a room with neverending spawning zombies.
+</li>
+
+<li><strong>Target Audience:</strong>
+Everyone.
+</li>
+
+<li><strong>Play Time:</strong>
+[0, infinity)
+</li>
+
+</ul>
+</div>
+
+<!-- main.js must come at the end since it expects the HTML to have been created. -->
+<script src="js/main.js" type="module"></script>
+</body>
+</html>
