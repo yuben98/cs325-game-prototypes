@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ZOMBIE SURVIVAL!</title>
+<style>
+body
+{
+    color: #777;
+    font-family: "Avenir", Verdana, sans-serif;
+}
+#readme
+{
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+<div id="game"></div>
+<div id="readme">
+<h2>ZOMBIE SURVIVAL</h2>
+
+<ul>
+<li><strong>Originality:</strong>
+This game is based on my Analog Assignment 5 and  Digital Assignment 8 which can be found on Bb and on this website respectvely. 
+All the assets were custom made by myself, except for the sound effects and the grave/snowflake. I fully made the player and zombie 
+sprites from scratch which took me longer than I would've liked. I added many new original elements to the game in this iteration 
+that I'm sure will be enjoyable. The zombies spawn from all corners of the map, they leave bodies, and there is a freeze collectible 
+powerup that helps the player achieve their goal.</li>
+
+<li><strong>Technical Merit:</strong>
+I was able to incorporate many assets, play multiple sounds at different volumes, and make fully functionning and animated sprites. 
+I have different sounds play for different events, in varying volumes. I incorporated some concepts from the textbook such as game feel.
+I had to work with many new elements: Instead of creating a new bullet every time the player shoots, which causes huge 
+performance issues the longer the game goes on, I recycle the same bullet but have it stay invisible until needed. I also have a very basic AI 
+for the zombies that follow and attack the player.
+<br>I fixed some issues with the zombies' animations so they now work as intended. I also modified the depth of some elements, and made use of 
+more sound effects. I also added an intro scene to the game that also serves as a pause between each gameplay iteration the player makes. I also 
+modified the gunshot sound to be faster, as I made use of it to limit the gunshots the player can make.
+<br>Furthermore, I modify the angle with which the zombie's dead body spawns depending on its relative location to the player, which serves both 
+to add variety to the bodies being spawned as well as realism.
+</li>
+
+<li><strong>Prototype Postmortem:</strong>
+This is my last iteration for this sequence and also for the class. I believe the improvements I've made to this version are very noticeable 
+well implemented, and I enjoyed working with the multiple scenes and varying elements. I think this is my most complete game yet, and it's a 
+nice way to end the semester.
+</li>
+
+<li><strong>Prototype Assets:</strong>
+All graphical assets were custom made, except for the grave and snowflake. The sound effects were borrowed from freesound.org:
+<ul>
+<li>Walking sound <a href="https://freesound.org/people/Yuval/sounds/189640/">Walk</a></li>
+</ul>
+<ul>
+<li>gunshot: <a href="https://freesound.org/people/andrest2003/sounds/524912/">Gunshot</a></li>
+</ul>
+<ul>
+<li>Zombie death: <a href="https://freesound.org/people/tonsil5/sounds/555421/">Zombie death</a></li>
+</ul>
+<ul>
+<li>Player's despair on death: <a href="https://freesound.org/people/NachtmahrTV/sounds/556706/">Pain</a></li>
+</ul>
+<ul>
+<li>Freeze sound effect: <a href="https://freesound.org/people/JustInvoke/sounds/446112/">Freeze</a></li>
+</ul>
+<ul>
+<li>Powerup Pickup: <a href="https://freesound.org/people/suntemple/sounds/253172/">Powerup</a></li>
+</ul>
+<ul>
+<li>Zombie sounds: <a href="https://freesound.org/people/GaryQ/sounds/111044/">Zombies</a></li>
+</ul>
+<ul>
+<li>Snowflake: <a href="https://pixy.org/4287991/">SnowFlake</a></li>
+</ul>
+</li>
+
+<li><strong>Prototype Closest Other Game:</strong>
+This game is an iteration of the previous Digital Assignment 8.
+</li>
+
+<li><strong>High Concept:</strong>
+Survive the zombie apocalypse. You have one gun.
+</li>
+
+<li><strong>Theme:</strong>
+There was no mandatory theme for this assignment.
+</li>
+
+<li><strong>Mandated Variety:</strong>
+Keyboard input; mouse input; both random and predetermined elements; competitor; adventure; overhead; infinite; shooter; superpowers.
+</li>
+
+<li><strong>Prototype Goal:</strong>
+Kill the zombies and survive.
+</li>
+
+<li><strong>Player Experience Goals:</strong>
+The players will have fun and want to challenge themselves to reach a new highscore.
+</li>
+
+<li><strong>Gameplay:</strong>
+Use WASD to move. Space to freeze zombies. Mouse click to shoot. Shots can only go in the direction the player is facing, The mouse isn't used to aim.
+</li>
+
+<li><strong>Strategies:</strong>
+Line up zombies and kill them. With the addition of the freeze mechanic, players will want to stack up the freezes during the early levels and use them 
+when the zombies get much quicker.
+</li>
+
+<li><strong>Story/Setting/Premise:</strong>
+A man is stuck in a room with neverending spawning zombies.
+</li>
+
+<li><strong>Target Audience:</strong>
+There is some blood/gore, to maybe not little kids.
+</li>
+
+<li><strong>Play Time:</strong>
+[0, infinity)
+</li>
+
+</ul>
+</div>
+
+<!-- main.js must come at the end since it expects the HTML to have been created. -->
+<script src="js/main.js" type="module"></script>
+</body>
+</html>
