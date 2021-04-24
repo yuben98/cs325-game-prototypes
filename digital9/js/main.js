@@ -32,8 +32,9 @@ var StartScene = new Phaser.Class({
         this.add.image(400,300,'bg');
         this.add.image(235,140, 'fricon').setScale(0.85);
         this.add.text(32,60, 'Use WASD to move.', { fontSize: '42px', fill: '#000' });
-        this.add.text(32,120, 'Collect  to stack freezes.', { fontSize: '42px', fill: '#000' });
-        this.add.text(32,180, 'Press SPACE to use up freezes.', { fontSize: '42px', fill: '#000' });
+        this.add.text(32,120, 'Mouse Click to Shoot', { fontSize: '42px', fill: '#000' });
+        this.add.text(32,180, 'Collect  to stack freezes.', { fontSize: '42px', fill: '#000' });
+        this.add.text(32,240, 'SPACE to freeze zombiees.', { fontSize: '42px', fill: '#000' });
 
         if (prev!=0) this.add.text(32,300, 'Your Score was '+prev, {fontSize: '32px', fill: '#000' });
         if (bestScore!=0) this.add.text(32,350, 'Your Best Score is '+bestScore, {fontSize: '32px', fill: '#000' });
