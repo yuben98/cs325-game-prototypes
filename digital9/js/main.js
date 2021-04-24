@@ -30,7 +30,7 @@ var StartScene = new Phaser.Class({
 
     create: function() {
         this.add.image(400,300,'bg');
-        this.add.image(235,140, 'fricon').setScale(0.85);
+        this.add.image(235,200, 'fricon').setScale(0.85);
         this.add.text(32,60, 'Use WASD to move.', { fontSize: '42px', fill: '#000' });
         this.add.text(32,120, 'Mouse Click to Shoot', { fontSize: '42px', fill: '#000' });
         this.add.text(32,180, 'Collect  to stack freezes.', { fontSize: '42px', fill: '#000' });
