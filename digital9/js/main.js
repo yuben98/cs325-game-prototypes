@@ -12,6 +12,7 @@ import "./phaser.js";
 // The simplest class example: https://phaser.io/examples/v3/view/scenes/scene-from-es6-class
 let prev=0;
 let bestScore=0;
+let cry=null;
 
 var StartScene = new Phaser.Class({
     Extends: Phaser.Scene,
@@ -101,7 +102,8 @@ var GameScene = new Phaser.Class({
         this.add.image(400, 300, 'background').setDepth(-2);
         this.shot=this.sound.add('shot');
         this.zombdeath=this.sound.add('zombdeath');
-        this.cry=this.sound.add('cry', {volume: 0.2});
+        if (cry== null) cry=this.sound.add('cry', {volume: 0.2});
+        cry.stop();
         this.tone=this.sound.add('tone');
         this.freezeSound=this.sound.add('freezeSound', {volume: 2});
         this.walk=this.sound.add('walk', {setLoop: true});
@@ -418,12 +420,15 @@ var GameScene = new Phaser.Class({
     },
 
     lose: function() {
-        this.cry.play();
+        this.player.setVelocity(0,0);
         if (bestScore< this.score) bestScore=this.score;
         prev=this.score;
-        this.zombs.stop();
+        this.zombs.setVolume(0);
+        this.walk.setVolume(0);
+        cry.play();
         this.score=0;
         this.count=0;
+        this.freezes=0;
         this.scene.start("startScene");
     } 
 
